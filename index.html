@@ -1,1 +1,49 @@
-<h1>Hello World</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Open House Leads Manager</title>
+</head>
+<body>
+  <h1>Open House Leads Manager</h1>
+  <form id="leadForm">
+    <label>Name:</label><br>
+    <input type="text" id="name" required><br><br>
+    <label>Email:</label><br>
+    <input type="email" id="email" required><br><br>
+    <label>Phone:</label><br>
+    <input type="text" id="phone" required><br><br>
+    <button type="submit">Submit</button>
+  </form>
+  
+  <script>
+    const scriptURL = "PASTE_WEB_APP_URL_HERE"; // Replace with your Web App URL
+    
+    document.getElementById("leadForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const nameVal = document.getElementById("name").value;
+      const emailVal = document.getElementById("email").value;
+      const phoneVal = document.getElementById("phone").value;
+      
+      const data = {
+        name: nameVal,
+        email: emailVal,
+        phone: phoneVal
+      };
+      
+      try {
+        await fetch(scriptURL, {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" }
+        });
+        alert("Lead submitted!");
+        document.getElementById("leadForm").reset();
+      } catch (error) {
+        alert("Error submitting lead.");
+      }
+    });
+  </script>
+</body>
+</html>
+
